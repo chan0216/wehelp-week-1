@@ -1,4 +1,4 @@
-from flask import Flask, request, render_template
+from flask import Flask, request, render_template, jsonify, make_response
 from model.dbmodel import con_pool
 from model.s3model import s3
 app = Flask(__name__)
@@ -32,14 +32,20 @@ def upload_file():
     return {"text": result["text"], "imgurl": result["imgurl"]}
 
 
-@app.route("/getdata", methods=["post"])
+@app.route("/getdata", methods=["get"])
 def getdata():
-    db = con_pool.get_connection()
-    cursor = db.cursor(dictionary=True)
-    cursor.execute("select * from data ")
-    result = cursor.fetchall()
-    return {"data": result}
+    try:
+        db = con_pool.get_connection()
+        cursor = db.cursor(dictionary=True)
+        cursor.execute("select * from data ")
+        result = cursor.fetchall()
+        return {"data": result}
+    except:
+        response = make_response(
+            jsonify({"error": True, "message": "伺服器內部錯誤"}), 500)
+        response.headers['Content-Type'] = 'application/json'
+        return response
 
 
 if __name__ == '__main__':
-    app.run(debug=False, host="0.0.0.0", port="5000")
+    app.run(debug=False, host="0.0.0.0")

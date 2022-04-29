@@ -22,9 +22,7 @@ function uploadFile(event) {
     });
 }
 
-fetch("/getdata", {
-  method: "POST",
-})
+fetch("/getdata")
   .then((response) => {
     return response.json();
   })

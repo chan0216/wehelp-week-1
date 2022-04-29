@@ -24,10 +24,10 @@ def upload_file():
         cursor.execute(sql, val)
         cursor.execute("select * from data ORDER BY id DESC LIMIT 1")
         result = cursor.fetchone()
-        db.commit()
     except:
         db.rollback()
     finally:
+        db.commit()
         cursor.close()
         db.close()
     return {"text": result["text"], "imgurl": result["imgurl"]}
@@ -41,11 +41,6 @@ def getdata():
         cursor.execute("select * from data ")
         result = cursor.fetchall()
         return {"data": result}
-    except:
-        response = make_response(
-            jsonify({"error": True, "message": "伺服器內部錯誤"}), 500)
-        response.headers['Content-Type'] = 'application/json'
-        return response
     finally:
         cursor.close()
         db.close()

@@ -28,6 +28,7 @@ def upload_file():
     except:
         db.rollback()
     finally:
+        cursor.close()
         db.close()
     return {"text": result["text"], "imgurl": result["imgurl"]}
 
@@ -45,6 +46,9 @@ def getdata():
             jsonify({"error": True, "message": "伺服器內部錯誤"}), 500)
         response.headers['Content-Type'] = 'application/json'
         return response
+    finally:
+        cursor.close()
+        db.close()
 
 
 if __name__ == '__main__':

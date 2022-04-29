@@ -1,0 +1,4 @@
+python-decouple
+Flask
+boto3
+mysql-connector-python

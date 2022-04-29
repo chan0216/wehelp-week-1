@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>upload files</title>
+  </head>
+  <body>
+    <h3>發表一篇圖文</h3>
+    <br />
+    <form onsubmit="uploadFile(event)">
+      文字內容<input
+        type="text"
+        id="text"
+        placeholder="選擇一張圖片後送出"
+        required
+      />
+      <br />
+      圖片檔案<input type="file" id="file" accept="image/*" required />
+      <br />
+      <input type="submit" value="送出" />
+    </form>
+  </body>
+  <script src="../static/app.js" type="text/javascript"></script>
+</html>
